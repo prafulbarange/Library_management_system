@@ -1,0 +1,33 @@
+{% extends 'testapp/base.html' %}
+  {% block content %}
+        <div class ="row">
+            <div class="col">
+              <h4 class="text-center alert alert-info">Books </h4>
+              {% if books %}
+              <table class="table table-hover ml-5">
+                <thead>
+                  <tr>
+                    <th scope="col">Book Name</th>
+                    <th scope="col">Authors</th>
+                    <th scope="col">Publisher</th>
+                    <th scope="col">Date Time</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for b in books %}
+                   <tr>
+                     <td>{{b.bookname}}</td>
+                     <td>{{b.authors}}</td>
+                     <td>{{b.publisher}}</td>
+                     <td>{{b.entry_time_date}}</td>
+                   </tr>
+                  {% endfor %}
+                </tbody>
+             </table>
+              {% else %}
+              <h4 class="text-center alert alert-info">No Data Found</h4>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+  {% endblock content %}

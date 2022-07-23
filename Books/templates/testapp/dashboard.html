@@ -1,0 +1,74 @@
+<html>
+    <head>
+      <title>Admin page</title>
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    </head>
+    <body>
+        <div class="row">
+            <div class="col-sm-4">
+              <h4 class="text-center alert alert-info">Add New Book</h4>
+              <form method="post">
+              {% csrf_token %}
+               
+              <div class="form-group">
+                <label for="exampleInputBook">Book Name</label>
+                <input type="text" name="bookname" class="form-control" id="exampleInput" aria-describedby="bookHelp" placeholder="Enter Name">
+              </div>
+          
+              <div class="form-group">
+                <label for="exampleInputauther">Authors</label>
+                <input type="text" name="authors" class="form-control" id="exampleInput" aria-describedby="emailHelp" placeholder="Authors">
+              </div>
+          
+              <div class="form-group">
+                <label for="exampleInputpublisher"> Publisher </label>
+                <input type="text" name="publisher" class="form-control" id="exampleInput" aria-describedby="emailHelp" placeholder="Enter Address">
+              </div>
+              
+              <button type="submit" class="btn btn-success">ADD</button>
+              <a href="{% url 'logout' %}" class="btn btn-success btn-sm">Log Out</a>
+            </div>
+            </form>
+
+            <div class="col-sm-8">
+              <h4 class="text-center alert alert-info">Books Information</h4>
+              <table class="table table-hover">
+                <thead>
+                  <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Book Name</th>
+                    <th scope="col">Authors</th>
+                    <th scope="col">Publisher</th>
+                    <th scope="col">Date Time</th>
+                    <th scope="col">Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                {% if books %}
+                  {% for b in books %}
+                   <tr>
+                     <td scope="row">{{b.id}}</td>
+                     <td>{{b.bookname}}</td>
+                     <td>{{b.authors}}</td>
+                     <td>{{b.publisher}}</td>
+                     <td>{{b.entry_time_date}}</td>
+
+                     <td>
+                        <a href="{% url 'update' b.id %}" class="btn btn-warning btn-sm">Update</a>
+                        <form  action="{% url 'delete' b.id %}" method="post" class="form-inline">
+                        {% csrf_token %}
+                        <input type="submit" class="btn btn-danger btn-sm" value="Delete">
+                       </form>
+                     </td>
+
+                   </tr>
+                   {% endfor %}
+                </tbody>
+             </table>
+              {% else %}
+              <h4 class="text-center alert alert-info">No Data Found</h4>
+              {% endif %}
+            </div>
+          </div>
+    </body>
+  </html>
